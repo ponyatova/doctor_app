@@ -21,6 +21,7 @@ import { EducationSection } from "@/components/lending/EducationSection";
 
 import { getServices } from "@/lib/actions";
 import { Services } from "@/components/lending/Services";
+import LegalNoticeSection from "@/components/lending/LegalNoticeSection";
 
 export async function generateMetadata() {
   const doctor = await getDoctorById(1).catch(() => null);
