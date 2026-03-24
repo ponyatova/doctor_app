@@ -46,7 +46,10 @@ export default function SectionsTab({
 
             <AdminInput name={`sections[${i}][text]`} defaultValue={s.text} />
 
-            <AdminInput name={`sections[${i}][order]`} defaultValue={s.order} />
+            <AdminInput
+              name={`sections[${i}][order_num]`}
+              defaultValue={s.order_num}
+            />
 
             <AdminInput name={`sections[${i}][file]`} type="file" />
 

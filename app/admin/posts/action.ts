@@ -151,7 +151,7 @@ export async function createSection(prev: any, formData: FormData) {
     post_id: formData.get("post_id"),
     title: formData.get("title"),
     text: formData.get("text"),
-    order: Number(formData.get("order")),
+    order_num: Number(formData.get("order_num")),
     image,
   });
 
@@ -219,7 +219,7 @@ export async function updateSections(prev: any, formData: FormData) {
       .update({
         title: s.title,
         text: s.text,
-        order: Number(s.order),
+        order_num: Number(s.order_num),
         image,
       })
       .eq("id", s.id);

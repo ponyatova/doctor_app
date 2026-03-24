@@ -13,7 +13,7 @@ export const revalidate = 300;
 type PostSectionType = {
   id: string;
   image: string | null;
-  order: number;
+  order_num: number;
   post_id: string;
   text: string;
   title: string;

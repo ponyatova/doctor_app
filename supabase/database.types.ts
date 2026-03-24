@@ -10,7 +10,7 @@ export type Database = {
   // Allows to automatically instantiate createClient with right options
   // instead of createClient<Database, { PostgrestVersion: 'XX' }>(URL, KEY)
   __InternalSupabase: {
-    PostgrestVersion: "14.1"
+    PostgrestVersion: "14.4"
   }
   public: {
     Tables: {
@@ -24,14 +24,14 @@ export type Database = {
         }
         Insert: {
           created_at?: string | null
-          id?: number
+          id?: never
           image_url: string
           subtitle: string
           title: string
         }
         Update: {
           created_at?: string | null
-          id?: number
+          id?: never
           image_url?: string
           subtitle?: string
           title?: string
@@ -194,14 +194,14 @@ export type Database = {
         }
         Insert: {
           experience: string
-          id?: number
+          id?: never
           is_active?: boolean | null
           name: string
           phone: string
         }
         Update: {
           experience?: string
-          id?: number
+          id?: never
           is_active?: boolean | null
           name?: string
           phone?: string
@@ -212,7 +212,7 @@ export type Database = {
         Row: {
           id: string
           image: string | null
-          order: number
+          order_num: number
           post_id: string
           text: string
           title: string
@@ -220,7 +220,7 @@ export type Database = {
         Insert: {
           id?: string
           image?: string | null
-          order: number
+          order_num: number
           post_id: string
           text: string
           title: string
@@ -228,7 +228,7 @@ export type Database = {
         Update: {
           id?: string
           image?: string | null
-          order?: number
+          order_num?: number
           post_id?: string
           text?: string
           title?: string
@@ -277,12 +277,12 @@ export type Database = {
           title: string
         }
         Insert: {
-          id?: number
+          id?: never
           order_num?: number | null
           title: string
         }
         Update: {
-          id?: number
+          id?: never
           order_num?: number | null
           title?: string
         }
@@ -299,7 +299,7 @@ export type Database = {
         }
         Insert: {
           created_at?: string | null
-          id?: number
+          id?: never
           is_active?: boolean | null
           name: string
           rating?: number | null
@@ -307,7 +307,7 @@ export type Database = {
         }
         Update: {
           created_at?: string | null
-          id?: number
+          id?: never
           is_active?: boolean | null
           name?: string
           rating?: number | null
@@ -357,7 +357,7 @@ export type Database = {
         Insert: {
           color_gradient: string
           description: string
-          id?: number
+          id?: never
           order_num?: number | null
           threshold: number
           title: string
@@ -365,7 +365,7 @@ export type Database = {
         Update: {
           color_gradient?: string
           description?: string
-          id?: number
+          id?: never
           order_num?: number | null
           threshold?: number
           title?: string
@@ -398,7 +398,7 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      is_admin: { Args: never; Returns: boolean }
+      [_ in never]: never
     }
     Enums: {
       [_ in never]: never
