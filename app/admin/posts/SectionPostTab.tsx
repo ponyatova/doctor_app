@@ -53,13 +53,15 @@ export default function SectionsTab({
 
             <AdminInput name={`sections[${i}][file]`} type="file" />
 
-            <Image
-              src={s.image || "/placeholder.jpg"}
-              alt={s.title}
-              width={400}
-              height={200}
-              className="object-cover rounded"
-            />
+            {s.image && (
+              <Image
+                src={s.image || "/placeholder.jpg"}
+                alt={s.title}
+                width={400}
+                height={200}
+                className="object-cover rounded"
+              />
+            )}
 
             <AdminDeleteButton action={deleteSection} id={s.id} />
           </div>
