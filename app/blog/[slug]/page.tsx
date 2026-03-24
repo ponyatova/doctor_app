@@ -82,7 +82,7 @@ export default async function PostPage({
 }) {
   const { slug } = await params;
   const data = await getPostBySlug(slug);
-  console.log("Post data:", data);
+
   if (!data) {
     notFound();
   }

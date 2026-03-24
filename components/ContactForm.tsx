@@ -28,7 +28,7 @@ export function ContactForm({ problem, doctor }: ContactFormProps) {
   const [isPending, startTransition] = useTransition();
   const [consentAgreed, setConsentAgreed] = useState(false);
   const email = doctor.contacts?.filter((item) => item.type === "email");
-  console.log(doctor.contacts);
+
   const website =
     doctor.contacts?.filter((item) => item.type === "website") || null;
   const handleSubmit = async (formData: FormData) => {

@@ -18,7 +18,7 @@ export default async function ContentPage({ searchParams }: Props) {
   const posts = await getPosts();
 
   const sections = post_id ? await getPostSections(post_id) : [];
-
+  // console.log("sections", sections, post_id);
   return (
     <div className="mt-[70px]">
       <Tabs

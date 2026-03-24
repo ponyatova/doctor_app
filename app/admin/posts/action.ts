@@ -144,7 +144,7 @@ export async function createSection(prev: any, formData: FormData) {
 
     const { data } = supabase.storage.from(BUCKET).getPublicUrl(fileName);
 
-    image = data.publicUrl;
+    image = data.publicUrl || "";
   }
 
   const { error } = await supabase.from("post_sections").insert({

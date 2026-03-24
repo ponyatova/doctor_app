@@ -227,12 +227,11 @@ export async function getPosts() {
 
 export async function getPostSections(post_id: string) {
   const supabase = await createServerSupabaseClient();
-
-  const { data } = await supabase
+  const { data, error } = await supabase
     .from("post_sections")
     .select("*")
     .eq("post_id", post_id)
-    .order("order", { ascending: true });
+    .order("order_num", { ascending: true });
 
   return data || [];
 }
