@@ -42,7 +42,7 @@ export function EvidenceSection({
     {
       icon: <LuClock size={36} />,
       value: `${doctor.experience}`,
-      label: "практики",
+      label: "практика",
       color: "from-sky-50 to-indigo-50",
       borderColor: "border-sky-200",
       iconBg: "bg-sky-100",
