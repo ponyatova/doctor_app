@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { LuMapPin, LuPhone, LuMail, LuClock, LuGlobe } from "react-icons/lu";
+import { LuMapPin, LuPhone, LuMail, LuGlobe } from "react-icons/lu";
 import type { DoctorWithRelations } from "@/lib/types";
 
 interface FooterProps {
@@ -7,14 +7,12 @@ interface FooterProps {
 }
 
 export function Footer({ doctor }: FooterProps) {
-  // Получаем телефон из контактов или из основного поля doctor
   const phoneContact =
     doctor?.contacts?.find((c) => c.type === "phone") ||
     (doctor?.phone ? { type: "phone", value: doctor.phone } : null);
 
   const emailContact = doctor?.contacts?.find((c) => c.type === "email");
 
-  // Форматируем телефон для ссылки
   const formatPhoneLink = (phone: string) => {
     return phone.replace(/[^0-9+]/g, "");
   };
@@ -57,13 +55,11 @@ export function Footer({ doctor }: FooterProps) {
             </ul>
           </div>
 
-          {/* Контакты */}
           <div>
             <h3 className="text-sm font-medium uppercase tracking-wider text-white/60 mb-4">
               Контакты
             </h3>
             <ul className="space-y-4 text-sm">
-              {/* Телефон */}
               {phoneContact && (
                 <li className="flex items-start gap-3">
                   <LuPhone className="w-5 h-5 text-white/40 flex-shrink-0 mt-0.5" />
@@ -76,7 +72,6 @@ export function Footer({ doctor }: FooterProps) {
                 </li>
               )}
 
-              {/* Email */}
               {emailContact && (
                 <li className="flex items-start gap-3">
                   <LuMail className="w-5 h-5 text-white/40 flex-shrink-0 mt-0.5" />
@@ -89,7 +84,6 @@ export function Footer({ doctor }: FooterProps) {
                 </li>
               )}
 
-              {/* Адрес */}
               {doctor?.addresses && doctor?.addresses[0] && (
                 <li className="flex items-start gap-3">
                   <LuMapPin className="w-5 h-5 text-white/40 flex-shrink-0 mt-0.5" />
@@ -101,14 +95,14 @@ export function Footer({ doctor }: FooterProps) {
                       {doctor?.addresses[0].address}
                     </div>
                     {doctor?.addresses[0].map_link && (
-                      <a
+                      <Link
                         href={doctor?.addresses[0].map_link}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="text-xs text-blue-400 hover:text-blue-300 inline-block mt-2"
                       >
                         Открыть на карте
-                      </a>
+                      </Link>
                     )}
                   </div>
                 </li>
@@ -117,7 +111,6 @@ export function Footer({ doctor }: FooterProps) {
           </div>
         </div>
 
-        {/* Нижняя часть с копирайтом */}
         <div className="mt-12 pt-8 border-t border-white/10">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <p className="text-sm text-white/40">
@@ -126,6 +119,13 @@ export function Footer({ doctor }: FooterProps) {
               защищены.
             </p>
             <div className="flex gap-6 text-xs">
+              <Link
+                href="/privacy"
+                target="_blank"
+                className="text-white/30 hover:text-white/50 transition-colors"
+              >
+                Политикой в отношении обработки персональных данных
+              </Link>
               <Link
                 href="/privacy"
                 className="text-white/30 hover:text-white/50 transition-colors"
