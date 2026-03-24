@@ -133,7 +133,7 @@ export function Footer({ doctor }: FooterProps) {
                 Политика конфиденциальности
               </Link>
               <Link
-                href="https://www.mirniydev.ru"
+                href="https://mirnyjj.vercel.app"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-purple-30 hover:text-purple-20 transition-colors flex items-center gap-2"
