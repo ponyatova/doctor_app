@@ -21,8 +21,8 @@ export function OfferSection({ doctor, reviewsCount }: OfferSectionProps) {
     },
     {
       icon: "Star",
-      title: `${reviewsCount} отзывов`,
-      desc: "Благodарные пациенты",
+      title: `Положительные отзывы`,
+      desc: "Благoдарные пациенты",
     },
   ];
 
