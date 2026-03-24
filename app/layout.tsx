@@ -84,53 +84,10 @@ export default async function RootLayout({
             __html: JSON.stringify(defaultJsonLd),
           }}
         />
-
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-      (function(m,e,t,r,i,k,a){
-        m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
-        m[i].l=1*new Date();
-        for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
-        k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
-      })(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=108211488', 'ym');
-
-      window.__METRIKA_CONSENT = localStorage.getItem('cookie-consent') === 'true';
-      if (!window.__METRIKA_CONSENT) {
-        window.ym = function(){};
-      } else {
-        ym(108211488, 'init', {
-          ssr:true, webvisor:true, clickmap:true,
-          ecommerce:"dataLayer", accurateTrackBounce:true, trackLinks:true
-        });
-      }
-    `,
-          }}
-        />
       </head>
       <body
         className={`${inter.variable} ${inter.className} h-full antialiased font-sans`}
       >
-        <noscript>
-          <div>
-            <img
-              src="https://mc.yandex.ru/watch/108211488"
-              style={{ position: "absolute", left: "-9999px" }}
-              alt=""
-            />
-          </div>
-        </noscript>
-        <div
-          className="fixed inset-0 z-[-2] bg-no-repeat"
-          style={{
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-            backgroundRepeat: "no-repeat",
-            backgroundAttachment: "fixed",
-            backgroundColor: "#f4fbff",
-          }}
-        />
-
         <div className="fixed inset-0 z-[-1] bg-white/85" />
 
         <div className="relative z-0 min-h-screen">
@@ -138,7 +95,6 @@ export default async function RootLayout({
             <Header doctor={doctor} />
             {children} <Footer doctor={doctor} />
           </ErrorBoundary>
-          <CookieConsent />
         </div>
       </body>
     </html>
