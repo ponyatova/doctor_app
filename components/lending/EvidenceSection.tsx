@@ -51,8 +51,8 @@ export function EvidenceSection({
     },
     {
       icon: <LuHeartHandshake size={36} />,
-      value: `${reviews}`,
-      label: "положительных отзывов пациентов",
+      value: "👍",
+      label: "Положительные отзывы пациентов",
       color: "from-emerald-50 to-teal-50",
       borderColor: "border-emerald-200",
       iconBg: "bg-emerald-100",
