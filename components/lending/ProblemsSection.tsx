@@ -10,12 +10,12 @@ export function ProblemsSection({ problems }: ProblemsSectionProps) {
 
   // Цвета для карточек
   const colors = [
-    'from-blue-50 to-indigo-50 border-blue-200',
-    'from-emerald-50 to-teal-50 border-emerald-200',
-    'from-amber-50 to-orange-50 border-amber-200',
-    'from-rose-50 to-pink-50 border-rose-200',
-    'from-purple-50 to-violet-50 border-purple-200',
-    'from-cyan-50 to-sky-50 border-cyan-200',
+    "from-blue-50 to-indigo-50 border-blue-200",
+    "from-emerald-50 to-teal-50 border-emerald-200",
+    "from-amber-50 to-orange-50 border-amber-200",
+    "from-rose-50 to-pink-50 border-rose-200",
+    "from-purple-50 to-violet-50 border-purple-200",
+    "from-cyan-50 to-sky-50 border-cyan-200",
   ];
 
   return (
@@ -33,26 +33,27 @@ export function ProblemsSection({ problems }: ProblemsSectionProps) {
           </div>
 
           {/* Сетка с карточками */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 max-w-6xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 max-w-6xl mx-auto items-stretch">
             {problems.map((problem, index) => (
               <div
                 key={problem.id}
-                className="group relative"
+                className="group relative h-full"
                 style={{ animationDelay: `${index * 50}ms` }}
               >
                 {/* Карточка */}
-                <div className={`
-                  relative p-6 rounded-2xl border bg-gradient-to-br ${colors[index % colors.length]}
-                  hover:shadow-lg hover:-translate-y-1 transition-all duration-300
-                `}>
+                <div
+                  className={`
+        h-full flex flex-col justify-between
+        p-6 rounded-2xl border bg-gradient-to-br ${colors[index % colors.length]}
+        hover:shadow-lg hover:-translate-y-1 transition-all duration-300
+      `}
+                >
                   {/* Контент */}
                   <div className="relative z-10">
-                    {/* Заголовок */}
                     <h3 className="text-lg font-medium text-slate-800 mb-2 group-hover:text-slate-900">
                       {problem.title}
                     </h3>
 
-                    {/* Дополнительная информация */}
                     <p className="text-sm text-slate-500 group-hover:text-slate-600 transition-colors">
                       Индивидуальный план лечения
                     </p>
@@ -68,7 +69,8 @@ export function ProblemsSection({ problems }: ProblemsSectionProps) {
           {/* Призыв к действию */}
           <div className="text-center mt-12">
             <p className="text-slate-400 text-sm">
-              Не нашли свою проблему? • Каждый случай уникален — свяжитесь для консультации
+              Не нашли свою проблему? • Каждый случай уникален — свяжитесь для
+              консультации
             </p>
           </div>
         </div>
