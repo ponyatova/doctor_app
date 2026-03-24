@@ -124,7 +124,7 @@ export function Footer({ doctor }: FooterProps) {
                 target="_blank"
                 className="text-white/30 hover:text-white/50 transition-colors"
               >
-                Политикой в отношении обработки персональных данных
+                Политика в отношении обработки персональных данных
               </Link>
               <Link
                 href="/privacy"
