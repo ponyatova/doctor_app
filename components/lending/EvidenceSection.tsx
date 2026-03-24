@@ -61,7 +61,7 @@ export function EvidenceSection({
     },
     {
       icon: <LuShield size={36} />,
-      value: "15+",
+      value: `${doctor.education?.length || 0}+`,
       label: "курсов повышения квалификации",
       color: "from-violet-50 to-purple-50",
       borderColor: "border-violet-200",

@@ -93,13 +93,13 @@ export default async function RootLayout({
         m[i].l=1*new Date();
         for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
         k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
-      })(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=106364517', 'ym');
+      })(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=108211488', 'ym');
 
       window.__METRIKA_CONSENT = localStorage.getItem('cookie-consent') === 'true';
       if (!window.__METRIKA_CONSENT) {
         window.ym = function(){};
       } else {
-        ym(106364517, 'init', {
+        ym(108211488, 'init', {
           ssr:true, webvisor:true, clickmap:true,
           ecommerce:"dataLayer", accurateTrackBounce:true, trackLinks:true
         });
@@ -114,7 +114,7 @@ export default async function RootLayout({
         <noscript>
           <div>
             <img
-              src="https://mc.yandex.ru/watch/106364517"
+              src="https://mc.yandex.ru/watch/108211488"
               style={{ position: "absolute", left: "-9999px" }}
               alt=""
             />

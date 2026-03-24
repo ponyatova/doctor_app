@@ -206,7 +206,6 @@ export async function addStage(prevState: any, formData: FormData) {
   };
 
   if (!stage.title) return { error: "Введите название" };
-  if (!stage.threshold) return { error: "Введите threshold" };
 
   const { error } = await supabase.from("treatment_stages").insert(stage);
 
