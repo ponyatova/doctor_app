@@ -127,10 +127,10 @@ export function Footer({ doctor }: FooterProps) {
                 Политика в отношении обработки персональных данных
               </Link>
               <Link
-                href="/privacy"
+                href="/offer"
                 className="text-white/30 hover:text-white/50 transition-colors"
               >
-                Политика конфиденциальности
+                Договор-оферта
               </Link>
               <Link
                 href="https://mirnyjj.vercel.app"
