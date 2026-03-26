@@ -717,7 +717,7 @@ export default function PrivacyPageClient({
                   <strong>Корр. счёт:</strong>
                 </p>
                 <p>
-                  <strong>Email:</strong>
+                  <strong>Email:</strong> {" "}
                   {email || "contact@&&&&&&"}
                 </p>
               </div>
