@@ -368,7 +368,7 @@ export default function ClientPageOffer({
                   <strong>Корр. счёт:</strong>
                 </p>
                 <p>
-                  <strong>Email:</strong>
+                  <strong>Email:</strong> {" "}
                   {email || "contact@&&&&&&"}
                 </p>
               </div>
