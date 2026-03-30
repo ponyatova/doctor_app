@@ -54,26 +54,26 @@ export default function DoctorScheduleTab({
       {schedule.map((s, i) => (
         <AdminForm action={upsertDoctorSchedules} key={s.id}>
           <div className="border p-4 rounded space-y-2 w-full min-w-0">
-            <AdminHidden name={`schedule[${i}][id]`} value={s.id} />
+            <AdminHidden name="id" value={s.id} />
 
-            <AdminSelect
-              name={`schedule[${i}][day_of_week]`}
-              label="День недели"
-              options={days}
-              defaultValue={String(s.day_of_week)}
-            />
+  <AdminSelect
+    name="day_of_week"
+    label="День недели"
+    options={days}
+    defaultValue={String(s.day_of_week)}
+  />
 
-            <AdminInput
-              name={`schedule[${i}][start_time]`}
-              defaultValue={s.start_time || ""}
-              type="time"
-            />
+  <AdminInput
+    name="start_time"
+    defaultValue={s.start_time || ""}
+    type="time"
+  />
 
-            <AdminInput
-              name={`schedule[${i}][end_time]`}
-              defaultValue={s.end_time || ""}
-              type="time"
-            />
+  <AdminInput
+    name="end_time"
+    defaultValue={s.end_time || ""}
+    type="time"
+  />
 
             <AdminDeleteButton action={deleteDoctorSchedule} id={s.id} />
           </div>
