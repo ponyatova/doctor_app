@@ -12,13 +12,13 @@ import {
 import { DoctorSchedule } from "@/lib/types";
 
 const days = [
-  { value: "1", label: "Понедельник" },
-  { value: "2", label: "Вторник" },
-  { value: "3", label: "Среда" },
-  { value: "4", label: "Четверг" },
-  { value: "5", label: "Пятница" },
-  { value: "6", label: "Суббота" },
-  { value: "7", label: "Воскресенье" },
+  { value: "0", label: "Понедельник" },
+  { value: "1", label: "Вторник" },
+  { value: "2", label: "Среда" },
+  { value: "3", label: "Четверг" },
+  { value: "4", label: "Пятница" },
+  { value: "5", label: "Суббота" },
+  { value: "6", label: "Воскресенье" },
 ];
 
 export default function DoctorScheduleTab({
