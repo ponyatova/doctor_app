@@ -19,29 +19,26 @@ export default async function ContentPage({ searchParams }: Props) {
     <div className="mt-[70px]">
       <Tabs
         tab={tab}
-        entity={content}
         tabs={[
           {
             key: "admin",
             label: "Вернуться к админке",
-            component: ({ entity }) => null,
+            component: () => null,
           },
           {
             key: "banners",
             label: "Баннеры",
-            component: ({ entity }) => <BannerTab banners={entity.banners} />,
+            component: () => <BannerTab banners={content.banners} />,
           },
           {
             key: "problems",
             label: "Проблемы",
-            component: ({ entity }) => (
-              <ProblemTab problems={entity.problems} />
-            ),
+            component: () => <ProblemTab problems={content.problems} />,
           },
           {
             key: "stages",
             label: "Этапы",
-            component: ({ entity }) => <StagesTab stages={entity.stages} />,
+            component: () => <StagesTab stages={content.stages} />,
           },
         ]}
       />

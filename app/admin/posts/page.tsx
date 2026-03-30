@@ -22,27 +22,23 @@ export default async function ContentPage({ searchParams }: Props) {
   return (
     <div className="mt-[70px]">
       <Tabs
-        entity={{ posts, sections, post_id: post_id }}
         tab={tab}
         tabs={[
           {
             key: "admin",
             label: "Вернуться к админке",
-            component: ({ entity }) => null,
+            component: () => null,
           },
           {
             key: "posts",
             label: "Посты",
-            component: ({ entity }) => <PostsTab posts={entity.posts.posts} />,
+            component: () => <PostsTab posts={posts.posts} />,
           },
           {
             key: "sections",
             label: "Секции",
-            component: ({ entity }) => (
-              <SectionsTab
-                sections={entity.sections}
-                post_id={entity.post_id}
-              />
+            component: () => (
+              <SectionsTab sections={sections} post_id={post_id} />
             ),
           },
         ]}

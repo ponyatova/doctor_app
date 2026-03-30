@@ -84,56 +84,44 @@ export function ContactForm({ problem, doctor }: ContactFormProps) {
   };
 
   const daysOfWeek = ["Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вс"];
-  const fullDaysOfWeek = [
-    "Понедельник",
-    "Вторник",
-    "Среда",
-    "Четверг",
-    "Пятница",
-    "Суббота",
-    "Воскресенье",
-  ];
 
   // Форматируем время
   const formatTime = (time: string | null) => {
     if (!time) return "Выходной";
-    return time.slice(0, 5); // "09:00:00" -> "09:00"
+    return time.slice(0, 5);
   };
 
+  const sortedSchedule = [...(doctor.schedule || [])].sort(
+    (a, b) => a.day_of_week - b.day_of_week,
+  );
 
-const sortedSchedule = [...(doctor.schedule || [])].sort(
-  (a, b) => a.day_of_week - b.day_of_week
-);
+  const compactSchedule = sortedSchedule.reduce<
+    { days: number[]; start: string | null; end: string | null }[]
+  >((acc, day) => {
+    const lastGroup = acc[acc.length - 1];
 
+    if (lastGroup) {
+      const lastDay = lastGroup.days[lastGroup.days.length - 1];
 
-const compactSchedule = sortedSchedule.reduce<
-  { days: number[]; start: string | null; end: string | null }[]
->((acc, day) => {
-  const lastGroup = acc[acc.length - 1];
+      const sameTime =
+        lastGroup.start === day.start_time && lastGroup.end === day.end_time;
 
-  if (lastGroup) {
-    const lastDay = lastGroup.days[lastGroup.days.length - 1];
+      const isNextDay = lastDay + 1 === day.day_of_week;
 
-    const sameTime =
-      lastGroup.start === day.start_time &&
-      lastGroup.end === day.end_time;
-
-    const isNextDay = lastDay + 1 === day.day_of_week;
-
-    if (sameTime && isNextDay) {
-      lastGroup.days.push(day.day_of_week);
-      return acc;
+      if (sameTime && isNextDay) {
+        lastGroup.days.push(day.day_of_week);
+        return acc;
+      }
     }
-  }
 
-  acc.push({
-    days: [day.day_of_week],
-    start: day.start_time,
-    end: day.end_time,
-  });
+    acc.push({
+      days: [day.day_of_week],
+      start: day.start_time,
+      end: day.end_time,
+    });
 
-  return acc;
-}, []);
+    return acc;
+  }, []);
 
   return (
     <section
@@ -256,29 +244,6 @@ const compactSchedule = sortedSchedule.reduce<
                             );
                           })}
                       </div>
-
-                      <details className="mt-2">
-                        <summary className="text-xs text-slate-400 cursor-pointer hover:text-slate-600">
-                          Подробное расписание
-                        </summary>
-                        <div className="mt-2 space-y-1">
-                          {doctor.schedule
-                            .sort((a, b) => a.day_of_week - b.day_of_week)
-                            .map((day) => (
-                              <div
-                                key={day.id}
-                                className="flex justify-between text-xs"
-                              >
-                                <span className="text-slate-400">
-                                  {fullDaysOfWeek[day.day_of_week]}
-                                </span>
-                                <span className="text-slate-600">
-                                  {`${formatTime(day.start_time)} – ${formatTime(day.end_time)}`}
-                                </span>
-                              </div>
-                            ))}
-                        </div>
-                      </details>
                     </div>
                   </div>
                 )}
@@ -448,7 +413,7 @@ const compactSchedule = sortedSchedule.reduce<
                       rows={4}
                       disabled={isPending}
                       className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-200 focus:border-blue-300 transition-all resize-none disabled:opacity-50"
-                      placeholder="Опишите кратко ваш вопрос или пожелания..."
+                      placeholder="Опишите кратко вашу проблему, вопрос, или пожелания..."
                     />
                   </div>
 

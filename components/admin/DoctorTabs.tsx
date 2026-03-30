@@ -2,14 +2,13 @@ import { TabConfig } from "@/lib/types";
 import Link from "next/link";
 
 export default function Tabs<T>({
-  entity,
   tabs,
   tab,
 }: {
-  entity: T;
-  tabs: TabConfig<T>[];
+  tabs: TabConfig[];
   tab?: string;
 }) {
+  console.log();
   const activeTab = tabs.find((t) => t.key === tab);
 
   return (
@@ -30,7 +29,7 @@ export default function Tabs<T>({
         ))}
       </div>
 
-      {activeTab && activeTab.component({ entity })}
+      {activeTab && activeTab.component()}
     </div>
   );
 }

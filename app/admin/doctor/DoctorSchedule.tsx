@@ -1,3 +1,4 @@
+"use server";
 import { AdminForm } from "@/components/admin/AdminForm";
 import { AdminInput } from "@/components/admin/AdminInput";
 import { AdminDeleteButton } from "@/components/admin/AdminDeleteButton";
@@ -21,11 +22,12 @@ const days = [
   { value: "6", label: "Воскресенье" },
 ];
 
-export default function DoctorScheduleTab({
+export default async function DoctorScheduleTab({
   schedule,
 }: {
   schedule: DoctorSchedule[];
 }) {
+  console.log("DoctorScheduleTab rendered", schedule);
   return (
     <div className="overflow-x-hidden flex flex-col gap-2">
       {/* ADD */}
@@ -50,30 +52,32 @@ export default function DoctorScheduleTab({
         </AdminForm>
       </div>
 
-      {/* LIST */}
       {schedule.map((s, i) => (
-        <AdminForm action={upsertDoctorSchedules} key={s.id}>
+        <AdminForm
+          action={upsertDoctorSchedules}
+          key={`${s.id}-${s.updated_at}`}
+        >
           <div className="border p-4 rounded space-y-2 w-full min-w-0">
             <AdminHidden name="id" value={s.id} />
 
-  <AdminSelect
-    name="day_of_week"
-    label="День недели"
-    options={days}
-    defaultValue={String(s.day_of_week)}
-  />
+            <AdminSelect
+              name="day_of_week"
+              label="День недели"
+              options={days}
+              defaultValue={String(s.day_of_week)}
+            />
 
-  <AdminInput
-    name="start_time"
-    defaultValue={s.start_time || ""}
-    type="time"
-  />
+            <AdminInput
+              name="start_time"
+              defaultValue={s.start_time || ""}
+              type="time"
+            />
 
-  <AdminInput
-    name="end_time"
-    defaultValue={s.end_time || ""}
-    type="time"
-  />
+            <AdminInput
+              name="end_time"
+              defaultValue={s.end_time || ""}
+              type="time"
+            />
 
             <AdminDeleteButton action={deleteDoctorSchedule} id={s.id} />
           </div>

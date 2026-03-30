@@ -38,20 +38,17 @@ export default function SectionsTab({
       </div>
 
       {sections.map((s, i) => (
-        <AdminForm action={updateSections} key={s.id}>
+        <AdminForm action={updateSections} key={`${s.id}-${s.updated_at}`}>
           <div className="border p-4 rounded space-y-2">
-            <AdminHidden name={`sections[${i}][id]`} value={s.id} />
+            <AdminHidden name="id" value={s.id} />
 
-            <AdminInput name={`sections[${i}][title]`} defaultValue={s.title} />
+            <AdminInput name="title" defaultValue={s.title} />
 
-            <AdminInput name={`sections[${i}][text]`} defaultValue={s.text} />
+            <AdminInput name="text" defaultValue={s.text} />
 
-            <AdminInput
-              name={`sections[${i}][order_num]`}
-              defaultValue={s.order_num}
-            />
+            <AdminInput name="order_num" defaultValue={s.order_num} />
 
-            <AdminInput name={`sections[${i}][file]`} type="file" />
+            <AdminInput name="file" type="file" />
 
             {s.image && (
               <Image

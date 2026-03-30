@@ -25,31 +25,19 @@ export default function StagesTab({ stages }: { stages: TreatmentStage[] }) {
       </div>
 
       {stages.map((s, i) => (
-        <AdminForm action={upsertStages} key={s.id}>
+        <AdminForm action={upsertStages} key={`${s.id}-${s.updated_at}`}>
           <div className="border p-4 rounded space-y-2">
-            <AdminHidden name={`stages[${i}][id]`} value={s.id.toString()} />
+            <AdminHidden name="id" value={s.id.toString()} />
 
-            <AdminInput name={`stages[${i}][title]`} defaultValue={s.title} />
+            <AdminInput name="title" defaultValue={s.title} />
 
-            <AdminInput
-              name={`stages[${i}][description]`}
-              defaultValue={s.description}
-            />
+            <AdminInput name="description" defaultValue={s.description} />
 
-            <AdminInput
-              name={`stages[${i}][color_gradient]`}
-              defaultValue={s.color_gradient}
-            />
+            <AdminInput name="color_gradient" defaultValue={s.color_gradient} />
 
-            <AdminInput
-              name={`stages[${i}][threshold]`}
-              defaultValue={s.threshold}
-            />
+            <AdminInput name="threshold" defaultValue={s.threshold} />
 
-            <AdminInput
-              name={`stages[${i}][order_num]`}
-              defaultValue={s.order_num ?? ""}
-            />
+            <AdminInput name="order_num" defaultValue={s.order_num ?? ""} />
 
             <AdminDeleteButton action={deleteStage} id={s.id.toString()} />
           </div>

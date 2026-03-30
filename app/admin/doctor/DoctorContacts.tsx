@@ -42,12 +42,15 @@ export default function DoctorContacts({
         </AdminForm>
       </div>
       {contacts.map((c, i) => (
-        <AdminForm action={upsertDoctorContacts} key={c.id}>
+        <AdminForm
+          action={upsertDoctorContacts}
+          key={`${c.id}-${c.updated_at}`}
+        >
           <div className="border p-4 rounded space-y-2">
-            <AdminHidden name={`contacts[${i}][id]`} value={c.id} />
+            <AdminHidden name="id" value={c.id} />
 
             <AdminSelect
-              name={`contacts[${i}][type]`}
+              name="type"
               defaultValue={c.type}
               label="Тип контакта"
               options={[
@@ -58,14 +61,8 @@ export default function DoctorContacts({
               ]}
             />
 
-            <AdminInput
-              name={`contacts[${i}][label]`}
-              defaultValue={c.label || "Название"}
-            />
-            <AdminInput
-              name={`contacts[${i}][value]`}
-              defaultValue={c.value || "Ссылка"}
-            />
+            <AdminInput name="label" defaultValue={c.label || "Название"} />
+            <AdminInput name="value" defaultValue={c.value || "Ссылка"} />
 
             <AdminDeleteButton action={deleteDoctorContact} id={c.id} />
           </div>

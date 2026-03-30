@@ -32,19 +32,16 @@ export default function ReviewsTab({ reviews }: { reviews: Review[] }) {
 
       {/* LIST */}
       {reviews.map((s, i) => (
-        <AdminForm action={updateReviews} key={s.id}>
+        <AdminForm action={updateReviews} key={`${s.id}-${s.updated_at}`}>
           <div className="border p-4 rounded space-y-2 w-full min-w-0">
-            <AdminHidden name={`reviews[${i}][id]`} value={s.id.toString()} />
+            <AdminHidden name="id" value={s.id.toString()} />
 
-            <AdminInput name={`reviews[${i}][name]`} defaultValue={s.name} />
+            <AdminInput name="name" defaultValue={s.name} />
 
-            <AdminInput
-              name={`reviews[${i}][text]`}
-              defaultValue={s.text || ""}
-            />
+            <AdminInput name="text" defaultValue={s.text || ""} />
 
             <AdminInput
-              name={`reviews[${i}][rating]`}
+              name="rating"
               type="number"
               defaultValue={String(s.rating)}
             />

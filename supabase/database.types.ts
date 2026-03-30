@@ -21,6 +21,7 @@ export type Database = {
           image_url: string
           subtitle: string
           title: string
+          updated_at: string | null
         }
         Insert: {
           created_at?: string | null
@@ -28,6 +29,7 @@ export type Database = {
           image_url: string
           subtitle: string
           title: string
+          updated_at?: string | null
         }
         Update: {
           created_at?: string | null
@@ -35,6 +37,7 @@ export type Database = {
           image_url?: string
           subtitle?: string
           title?: string
+          updated_at?: string | null
         }
         Relationships: []
       }
@@ -46,6 +49,7 @@ export type Database = {
           doctor_id: number
           id: string
           map_link: string | null
+          updated_at: string | null
         }
         Insert: {
           address: string
@@ -54,6 +58,7 @@ export type Database = {
           doctor_id: number
           id?: string
           map_link?: string | null
+          updated_at?: string | null
         }
         Update: {
           address?: string
@@ -62,6 +67,7 @@ export type Database = {
           doctor_id?: number
           id?: string
           map_link?: string | null
+          updated_at?: string | null
         }
         Relationships: [
           {
@@ -80,6 +86,7 @@ export type Database = {
           id: string
           label: string | null
           type: string
+          updated_at: string | null
           value: string
         }
         Insert: {
@@ -88,6 +95,7 @@ export type Database = {
           id?: string
           label?: string | null
           type: string
+          updated_at?: string | null
           value: string
         }
         Update: {
@@ -96,6 +104,7 @@ export type Database = {
           id?: string
           label?: string | null
           type?: string
+          updated_at?: string | null
           value?: string
         }
         Relationships: [
@@ -116,6 +125,7 @@ export type Database = {
           order_num: number | null
           title: string
           type: string | null
+          updated_at: string | null
           year: string
         }
         Insert: {
@@ -125,6 +135,7 @@ export type Database = {
           order_num?: number | null
           title: string
           type?: string | null
+          updated_at?: string | null
           year: string
         }
         Update: {
@@ -134,6 +145,7 @@ export type Database = {
           order_num?: number | null
           title?: string
           type?: string | null
+          updated_at?: string | null
           year?: string
         }
         Relationships: [
@@ -191,6 +203,7 @@ export type Database = {
           is_active: boolean | null
           name: string
           phone: string
+          updated_at: string | null
         }
         Insert: {
           experience: string
@@ -198,6 +211,7 @@ export type Database = {
           is_active?: boolean | null
           name: string
           phone: string
+          updated_at?: string | null
         }
         Update: {
           experience?: string
@@ -205,6 +219,7 @@ export type Database = {
           is_active?: boolean | null
           name?: string
           phone?: string
+          updated_at?: string | null
         }
         Relationships: []
       }
@@ -216,6 +231,7 @@ export type Database = {
           post_id: string
           text: string
           title: string
+          updated_at: string | null
         }
         Insert: {
           id?: string
@@ -224,6 +240,7 @@ export type Database = {
           post_id: string
           text: string
           title: string
+          updated_at?: string | null
         }
         Update: {
           id?: string
@@ -232,6 +249,7 @@ export type Database = {
           post_id?: string
           text?: string
           title?: string
+          updated_at?: string | null
         }
         Relationships: [
           {
@@ -275,16 +293,19 @@ export type Database = {
           id: number
           order_num: number | null
           title: string
+          updated_at: string | null
         }
         Insert: {
           id?: never
           order_num?: number | null
           title: string
+          updated_at?: string | null
         }
         Update: {
           id?: never
           order_num?: number | null
           title?: string
+          updated_at?: string | null
         }
         Relationships: []
       }
@@ -296,6 +317,7 @@ export type Database = {
           name: string
           rating: number | null
           text: string
+          updated_at: string | null
         }
         Insert: {
           created_at?: string | null
@@ -304,6 +326,7 @@ export type Database = {
           name: string
           rating?: number | null
           text: string
+          updated_at?: string | null
         }
         Update: {
           created_at?: string | null
@@ -312,6 +335,7 @@ export type Database = {
           name?: string
           rating?: number | null
           text?: string
+          updated_at?: string | null
         }
         Relationships: []
       }
@@ -353,6 +377,7 @@ export type Database = {
           order_num: number | null
           threshold: number
           title: string
+          updated_at: string | null
         }
         Insert: {
           color_gradient: string
@@ -361,6 +386,7 @@ export type Database = {
           order_num?: number | null
           threshold: number
           title: string
+          updated_at?: string | null
         }
         Update: {
           color_gradient?: string
@@ -369,6 +395,7 @@ export type Database = {
           order_num?: number | null
           threshold?: number
           title?: string
+          updated_at?: string | null
         }
         Relationships: []
       }
@@ -378,18 +405,21 @@ export type Database = {
           email: string
           id: string
           role: string
+          updated_at: string | null
         }
         Insert: {
           created_at?: string | null
           email: string
           id: string
           role?: string
+          updated_at?: string | null
         }
         Update: {
           created_at?: string | null
           email?: string
           id?: string
           role?: string
+          updated_at?: string | null
         }
         Relationships: []
       }

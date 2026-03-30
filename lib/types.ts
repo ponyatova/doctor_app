@@ -149,8 +149,8 @@ export type DoctorFull = {
 
 export type DoctorContactType = "phone" | "email" | "max" | "website";
 
-export type TabConfig<T> = {
+export type TabConfig = {
   key: string;
   label: string;
-  component: (props: { entity: T }) => React.ReactNode;
+  component: () => React.ReactNode;
 };

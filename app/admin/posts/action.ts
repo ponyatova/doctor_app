@@ -32,72 +32,52 @@ export async function createPost(prev: any, formData: FormData) {
 export async function updatePosts(prev: any, formData: FormData) {
   const supabase = await checkAdmin();
 
-  const map = new Map<number, any>();
+  const { data: old } = await supabase
+    .from("posts")
+    .select("banner_image")
+    .eq("id", formData.get("id"))
+    .single();
 
-  for (const [key, value] of formData.entries()) {
-    const match = key.match(/posts\[(\d+)]\[(\w+)]/);
-    if (!match) continue;
+  let banner_image = old?.banner_image ?? null;
 
-    const index = Number(match[1]);
-    const field = match[2];
+  const file = formData.get("file") as File;
 
-    if (!map.has(index)) map.set(index, {});
-    map.get(index)![field] = value;
-  }
+  // 🔹 если загрузили новый файл
+  if (file && file.size > 0) {
+    const fileName = `${Date.now()}-${file.name}`;
 
-  for (const p of map.values()) {
-    if (!p.id) continue;
+    const { error: uploadError } = await supabase.storage
+      .from("image")
+      .upload(fileName, file);
 
-    // 🔹 получить старый баннер
-    const { data: old } = await supabase
-      .from("posts")
-      .select("banner_image")
-      .eq("id", p.id)
-      .single();
+    if (uploadError) return { error: uploadError.message };
 
-    let banner_image = old?.banner_image ?? null;
+    const { data } = supabase.storage.from("image").getPublicUrl(fileName);
 
-    const file = p.file as File;
+    const newUrl = data.publicUrl;
+    if (old?.banner_image) {
+      const path = old.banner_image.match(
+        /\/object\/public\/[^/]+\/(.+)$/,
+      )?.[1];
 
-    // 🔹 если загрузили новый файл
-    if (file && file.size > 0) {
-      const fileName = `${Date.now()}-${file.name}`;
-
-      const { error: uploadError } = await supabase.storage
-        .from("image")
-        .upload(fileName, file);
-
-      if (uploadError) return { error: uploadError.message };
-
-      const { data } = supabase.storage.from("image").getPublicUrl(fileName);
-
-      const newUrl = data.publicUrl;
-
-      // 🔥 удалить старый файл
-      if (old?.banner_image) {
-        const path = old.banner_image.match(
-          /\/object\/public\/[^/]+\/(.+)$/,
-        )?.[1];
-
-        if (path) {
-          await supabase.storage.from("image").remove([path]);
-        }
+      if (path) {
+        await supabase.storage.from("image").remove([path]);
       }
-
-      banner_image = newUrl;
     }
 
-    const { error } = await supabase
-      .from("posts")
-      .update({
-        title: p.title,
-        slug: p.slug,
-        banner_image,
-      })
-      .eq("id", p.id);
-
-    if (error) return { error: error.message };
+    banner_image = newUrl;
   }
+
+  const { error } = await supabase
+    .from("posts")
+    .update({
+      title: formData.get("title") || "",
+      slug: formData.get("slug") || "",
+      banner_image,
+    })
+    .eq("id", formData.get("id"));
+
+  if (error) return { error: error.message };
 
   revalidatePath("/admin/posts");
   return { success: true };
@@ -164,71 +144,53 @@ export async function createSection(prev: any, formData: FormData) {
 export async function updateSections(prev: any, formData: FormData) {
   const supabase = await checkAdmin();
 
-  const map = new Map<number, any>();
+  const { data: old } = await supabase
+    .from("post_sections")
+    .select("image")
+    .eq("id", formData.get("id"))
+    .single();
 
-  for (const [key, value] of formData.entries()) {
-    const match = key.match(/sections\[(\d+)]\[(\w+)]/);
-    if (!match) continue;
+  let image = old?.image ?? null;
+  const file = formData.get("file") as File;
 
-    const index = Number(match[1]);
-    const field = match[2];
+  // 🔹 новый файл
+  if (file && file.size > 0) {
+    const fileName = `${Date.now()}-${file.name}`;
 
-    if (!map.has(index)) map.set(index, {});
-    map.get(index)![field] = value;
-  }
+    const { error: uploadError } = await supabase.storage
+      .from(BUCKET)
+      .upload(fileName, file);
 
-  for (const s of map.values()) {
-    if (!s.id) continue;
+    if (uploadError) return { error: uploadError.message };
 
-    const { data: old } = await supabase
-      .from("post_sections")
-      .select("image")
-      .eq("id", s.id)
-      .single();
+    const { data } = supabase.storage.from(BUCKET).getPublicUrl(fileName);
 
-    let image = old?.image ?? null;
-    const file = s.file as File;
+    const newUrl = data.publicUrl;
 
-    // 🔹 новый файл
-    if (file && file.size > 0) {
-      const fileName = `${Date.now()}-${file.name}`;
-
-      const { error: uploadError } = await supabase.storage
-        .from(BUCKET)
-        .upload(fileName, file);
-
-      if (uploadError) return { error: uploadError.message };
-
-      const { data } = supabase.storage.from(BUCKET).getPublicUrl(fileName);
-
-      const newUrl = data.publicUrl;
-
-      // 🔥 удалить старый
-      if (old?.image) {
-        const path = getStoragePath(old.image);
-        if (path) {
-          await supabase.storage.from(BUCKET).remove([path]);
-        }
+    if (old?.image) {
+      const path = getStoragePath(old.image);
+      if (path) {
+        await supabase.storage.from(BUCKET).remove([path]);
       }
-
-      image = newUrl;
     }
 
-    const { error } = await supabase
-      .from("post_sections")
-      .update({
-        title: s.title,
-        text: s.text,
-        order_num: Number(s.order_num),
-        image,
-      })
-      .eq("id", s.id);
-
-    if (error) return { error: error.message };
-    const path = `/admin/posts?tab=sections&post_id=${s.id}`;
-    revalidatePath(path);
-    return { success: true };
+    image = newUrl;
   }
+
+  const { error } = await supabase
+    .from("post_sections")
+    .update({
+      title: formData.get("title") || "",
+      text: formData.get("text") || "",
+      order_num: Number(formData.get("order_num")),
+      image,
+    })
+    .eq("id", formData.get("id"));
+
+  if (error) return { error: error.message };
+  const path = `/admin/posts?tab=sections&post_id=${formData.get("id")}`;
+  revalidatePath(path);
+  return { success: true };
 }
 
 export async function deleteSection(id: string) {

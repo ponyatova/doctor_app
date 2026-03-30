@@ -1,7 +1,12 @@
-'use client'
+"use client";
 
 import { RevealSection } from "./RevealSection";
-import { LuStar, LuChevronDown, LuChevronUp, LuExternalLink } from "react-icons/lu";
+import {
+  LuStar,
+  LuChevronDown,
+  LuChevronUp,
+  LuExternalLink,
+} from "react-icons/lu";
 import type { Review } from "@/lib/types";
 import { useState } from "react";
 
@@ -10,7 +15,9 @@ interface ReviewsSectionProps {
 }
 
 export function ReviewsSection({ reviews }: ReviewsSectionProps) {
-  const [expandedReviews, setExpandedReviews] = useState<Set<number>>(new Set());
+  const [expandedReviews, setExpandedReviews] = useState<Set<number>>(
+    new Set(),
+  );
   const [showAll, setShowAll] = useState(false);
 
   if (reviews.length === 0) return null;
@@ -28,16 +35,20 @@ export function ReviewsSection({ reviews }: ReviewsSectionProps) {
   const displayedReviews = showAll ? reviews : reviews.slice(0, 6);
 
   // Фильтруем отзывы с рейтингом для подсчета среднего
-  const reviewsWithRating = reviews.filter(review => review.rating !== null);
-  const averageRating = reviewsWithRating.length > 0
-    ? reviewsWithRating.reduce((acc, review) => acc + (review.rating || 0), 0) / reviewsWithRating.length
-    : 0;
+  const reviewsWithRating = reviews.filter((review) => review.rating !== null);
+  const averageRating =
+    reviewsWithRating.length > 0
+      ? reviewsWithRating.reduce(
+          (acc, review) => acc + (review.rating || 0),
+          0,
+        ) / reviewsWithRating.length
+      : 0;
 
   // Функция для обрезки текста
   const truncateText = (text: string, maxLength: number = 150) => {
-    if (!text) return '';
+    if (!text) return "";
     if (text.length <= maxLength) return text;
-    return text.slice(0, maxLength) + '...';
+    return text.slice(0, maxLength) + "...";
   };
 
   return (
@@ -58,9 +69,10 @@ export function ReviewsSection({ reviews }: ReviewsSectionProps) {
                     <LuStar
                       key={i}
                       size={24}
-                      className={i < Math.round(averageRating)
-                        ? "text-amber-400 fill-amber-400"
-                        : "text-slate-300"
+                      className={
+                        i < Math.round(averageRating)
+                          ? "text-amber-400 fill-amber-400"
+                          : "text-slate-300"
                       }
                     />
                   ))}
@@ -71,16 +83,16 @@ export function ReviewsSection({ reviews }: ReviewsSectionProps) {
               </div>
             )}
 
-            <p className="text-slate-500">
-              На основе {reviews.length} отзывов
-            </p>
+            <p className="text-slate-500">На основе {reviews.length} отзывов</p>
           </div>
 
           {/* Сетка отзывов */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-7xl mx-auto">
             {displayedReviews.map((review) => {
               const isExpanded = expandedReviews.has(review.id);
-              const displayText = isExpanded ? review.text : truncateText(review.text);
+              const displayText = isExpanded
+                ? review.text
+                : truncateText(review.text);
               const needsExpand = review.text && review.text.length > 150;
 
               return (
@@ -88,35 +100,27 @@ export function ReviewsSection({ reviews }: ReviewsSectionProps) {
                   key={review.id}
                   className="bg-white rounded-2xl p-6 border border-slate-100 shadow-sm hover:shadow-md transition-all duration-300 flex flex-col h-full group"
                 >
-                  {/* Шапка с рейтингом и датой */}
+                  {/* Шапка с рейтингом  */}
                   <div className="flex items-center justify-between mb-4">
                     <div className="flex gap-1">
                       {[...Array(5)].map((_, i) => (
                         <LuStar
                           key={i}
                           size={16}
-                          className={review.rating && i < review.rating
-                            ? "text-amber-400 fill-amber-400"
-                            : "text-slate-200"
+                          className={
+                            review.rating && i < review.rating
+                              ? "text-amber-400 fill-amber-400"
+                              : "text-slate-200"
                           }
                         />
                       ))}
                     </div>
-                    {review.created_at && (
-                      <span className="text-xs text-slate-400">
-                        {new Date(review.created_at).toLocaleDateString('ru-RU', {
-                          day: 'numeric',
-                          month: 'long',
-                          year: 'numeric'
-                        })}
-                      </span>
-                    )}
                   </div>
 
                   {/* Текст отзыва */}
                   <div className="flex-1">
                     <p className="text-slate-600 mb-4 leading-relaxed">
-                      {displayText || 'Нет текста отзыва'}
+                      {displayText || "Нет текста отзыва"}
                     </p>
 
                     {/* Кнопка "Читать полностью" */}
@@ -143,9 +147,8 @@ export function ReviewsSection({ reviews }: ReviewsSectionProps) {
                   {/* Информация об авторе */}
                   <div className="mt-auto pt-4 border-t border-slate-100">
                     <p className="font-medium text-slate-800">
-                      {review.name || 'Анонимно'}
+                      {review.name || "Анонимно"}
                     </p>
-
                   </div>
                 </div>
               );
@@ -160,9 +163,15 @@ export function ReviewsSection({ reviews }: ReviewsSectionProps) {
                 className="inline-flex items-center gap-2 px-6 py-3 bg-slate-800 text-white rounded-xl hover:bg-slate-700 transition-colors duration-300 shadow-sm"
               >
                 <span>
-                  {showAll ? 'Показать меньше' : `Показать все отзывы (${reviews.length})`}
+                  {showAll
+                    ? "Показать меньше"
+                    : `Показать все отзывы (${reviews.length})`}
                 </span>
-                {showAll ? <LuChevronUp size={18} /> : <LuChevronDown size={18} />}
+                {showAll ? (
+                  <LuChevronUp size={18} />
+                ) : (
+                  <LuChevronDown size={18} />
+                )}
               </button>
             </div>
           )}
@@ -172,7 +181,6 @@ export function ReviewsSection({ reviews }: ReviewsSectionProps) {
             <div className="text-center mt-8">
               <a
                 href="https://prodoctorov.ru/samara/vrach/1240037-ponyatova/otzivi/#otzivi"
-
                 className="inline-flex items-center gap-2 text-sm text-slate-400 hover:text-slate-600 transition-colors"
               >
                 <LuExternalLink size={14} />

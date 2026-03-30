@@ -11,18 +11,17 @@ export default async function ServicesPage() {
   return (
     <div className="mt-[70px] space-y-6">
       <Tabs<Service[]>
-        entity={services}
         tab="services"
         tabs={[
           {
             key: "admin",
             label: "Вернуться к админке",
-            component: ({ entity }) => null,
+            component: () => null,
           },
           {
             key: "services",
             label: "Сервисы",
-            component: ({ entity }) => <ServicesTab services={entity} />,
+            component: () => <ServicesTab services={services} />,
           },
         ]}
       />

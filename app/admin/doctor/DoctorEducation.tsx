@@ -54,30 +54,29 @@ export default function DoctorEducationTab({
 
       {/* LIST */}
       {education.map((e, i) => (
-        <AdminForm action={upsertDoctorEducation} key={e.id}>
+        <AdminForm
+          action={upsertDoctorEducation}
+          key={`${e.id}-${e.updated_at}`}
+        >
           <div className="border p-4 rounded space-y-2 w-full min-w-0">
-            <AdminHidden name={`education[${i}][id]`} value={e.id} />
+            <AdminHidden name="id" value={e.id} />
 
             <AdminInput
-              name={`education[${i}][title]`}
+              name="title"
               defaultValue={e.title}
               placeholder="Название"
             />
 
-            <AdminInput
-              name={`education[${i}][year]`}
-              defaultValue={e.year}
-              placeholder="Год"
-            />
+            <AdminInput name="year" defaultValue={e.year} placeholder="Год" />
 
             <AdminSelect
-              name={`education[${i}][type]`}
+              name="type"
               options={types}
               defaultValue={e.type || ""}
             />
 
             <AdminInput
-              name={`education[${i}][order_num]`}
+              name="order_num"
               defaultValue={e.order_num ?? ""}
               type="number"
               placeholder="Порядок"

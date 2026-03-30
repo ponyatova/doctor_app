@@ -151,34 +151,17 @@ export async function addProblem(prevState: any, formData: FormData) {
 export async function upsertProblems(prevState: any, formData: FormData) {
   const supabase = await checkAdmin();
 
-  const map = new Map<number, any>();
+  const { error } = await supabase
+    .from("problems")
+    .update({
+      title: (formData.get("title") as string) || "",
+      order_num: formData.get("order_num")
+        ? Number(formData.get("order_num"))
+        : null,
+    })
+    .eq("id", formData.get("id"));
 
-  for (const [key, value] of formData.entries()) {
-    const match = key.match(/problems\[(\d+)]\[(\w+)]/);
-    if (!match) continue;
-
-    const index = Number(match[1]);
-    const field = match[2];
-
-    if (!map.has(index)) map.set(index, {});
-    map.get(index)![field] = value;
-  }
-
-  const problems = Array.from(map.values());
-
-  for (const p of problems) {
-    if (p.id) {
-      const { error } = await supabase
-        .from("problems")
-        .update({
-          title: p.title,
-          order_num: p.order_num ? Number(p.order_num) : null,
-        })
-        .eq("id", p.id);
-
-      if (error) return { error: error.message };
-    }
-  }
+  if (error) return { error: error.message };
   revalidatePath("/admin/content?tab=problems");
   return { success: true };
 }
@@ -217,37 +200,20 @@ export async function addStage(prevState: any, formData: FormData) {
 export async function upsertStages(prevState: any, formData: FormData) {
   const supabase = await checkAdmin();
 
-  const map = new Map<number, any>();
+  const { error } = await supabase
+    .from("treatment_stages")
+    .update({
+      title: (formData.get("title") as string) || "",
+      description: (formData.get("description") as string) || "",
+      color_gradient: (formData.get("color_gradient") as string) || "",
+      threshold: Number(formData.get("threshold")),
+      order_num: formData.get("order_num")
+        ? Number(formData.get("order_num"))
+        : null,
+    })
+    .eq("id", formData.get("id"));
 
-  for (const [key, value] of formData.entries()) {
-    const match = key.match(/stages\[(\d+)]\[(\w+)]/);
-    if (!match) continue;
-
-    const index = Number(match[1]);
-    const field = match[2];
-
-    if (!map.has(index)) map.set(index, {});
-    map.get(index)![field] = value;
-  }
-
-  const stages = Array.from(map.values());
-
-  for (const s of stages) {
-    if (s.id) {
-      const { error } = await supabase
-        .from("treatment_stages")
-        .update({
-          title: s.title,
-          description: s.description,
-          color_gradient: s.color_gradient,
-          threshold: Number(s.threshold),
-          order_num: s.order_num ? Number(s.order_num) : null,
-        })
-        .eq("id", s.id);
-
-      if (error) return { error: error.message };
-    }
-  }
+  if (error) return { error: error.message };
   revalidatePath("/admin/content?tab=stages");
   return { success: true };
 }

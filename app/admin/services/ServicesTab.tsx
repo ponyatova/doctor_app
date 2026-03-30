@@ -31,25 +31,22 @@ export default function ServicesTab({ services }: { services: Service[] }) {
 
       {/* LIST */}
       {services.map((s, i) => (
-        <AdminForm action={updateServices} key={s.id}>
+        <AdminForm action={updateServices} key={`${s.id}-${s.updated_at}`}>
           <div className="border p-4 rounded space-y-2 w-full min-w-0">
-            <AdminHidden name={`services[${i}][id]`} value={s.id} />
+            <AdminHidden name="id" value={s.id} />
 
-            <AdminInput name={`services[${i}][title]`} defaultValue={s.title} />
+            <AdminInput name="title" defaultValue={s.title} />
 
-            <AdminInput
-              name={`services[${i}][description]`}
-              defaultValue={s.description || ""}
-            />
+            <AdminInput name="description" defaultValue={s.description || ""} />
 
             <AdminInput
-              name={`services[${i}][price]`}
+              name="price"
               type="number"
               defaultValue={String(s.price)}
             />
 
             <AdminInput
-              name={`services[${i}][duration_minutes]`}
+              name="duration_minutes"
               type="number"
               defaultValue={String(s.duration_minutes)}
             />

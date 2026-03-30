@@ -21,7 +21,7 @@ export default function BannerTab({ banners }: { banners: Banner[] }) {
         </AdminForm>
       </div>
       {banners.map((b) => (
-        <AdminForm key={b.id} action={updateBanner}>
+        <AdminForm key={`${b.id}-${b.updated_at}`} action={updateBanner}>
           <div className="border p-4 rounded space-y-2">
             <AdminHidden name="id" value={b.id.toString()} />
 

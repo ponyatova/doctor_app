@@ -22,16 +22,13 @@ export default function ProblemTab({ problems }: { problems: Problem[] }) {
       </div>
 
       {problems.map((p, i) => (
-        <AdminForm action={upsertProblems} key={p.id}>
+        <AdminForm action={upsertProblems} key={`${p.id}-${p.updated_at}`}>
           <div className="border p-4 rounded space-y-2">
-            <AdminHidden name={`problems[${i}][id]`} value={p.id.toString()} />
+            <AdminHidden name="id" value={p.id.toString()} />
 
-            <AdminInput name={`problems[${i}][title]`} defaultValue={p.title} />
+            <AdminInput name="title" defaultValue={p.title} />
 
-            <AdminInput
-              name={`problems[${i}][order_num]`}
-              defaultValue={p.order_num ?? ""}
-            />
+            <AdminInput name="order_num" defaultValue={p.order_num ?? ""} />
 
             <AdminDeleteButton action={deleteProblem} id={p.id.toString()} />
           </div>

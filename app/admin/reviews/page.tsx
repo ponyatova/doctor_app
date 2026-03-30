@@ -8,18 +8,17 @@ export default async function ReviewsPage() {
   return (
     <div className="mt-[70px] space-y-6">
       <Tabs<Review[]>
-        entity={reviews}
         tab="reviews"
         tabs={[
           {
             key: "admin",
             label: "Вернуться к админке",
-            component: ({ entity }) => null,
+            component: () => null,
           },
           {
             key: "reviews",
             label: "Отзывы",
-            component: ({ entity }) => <ReviewsTab reviews={entity} />,
+            component: () => <ReviewsTab reviews={reviews} />,
           },
         ]}
       />

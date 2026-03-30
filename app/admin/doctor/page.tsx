@@ -20,48 +20,39 @@ export default async function DoctorPage({ searchParams }: Props) {
 
   return (
     <div className="mt-[70px]">
-      <Tabs<DoctorFull>
-        entity={doctor}
+      <Tabs
         tab={tab}
         tabs={[
           {
             key: "admin",
             label: "Вернуться к админке",
-            component: ({ entity }) => null,
+            component: () => null,
           },
           {
             key: "main",
             label: "Основное",
-            component: ({ entity }) => (
-              <DoctorMainForm doctor={entity.doctor} />
-            ),
+            component: () => <DoctorMainForm doctor={doctor.doctor} />,
           },
           {
             key: "contacts",
             label: "Контакты",
-            component: ({ entity }) => (
-              <DoctorContacts contacts={entity.contacts} />
-            ),
+            component: () => <DoctorContacts contacts={doctor.contacts} />,
           },
           {
             key: "addresses",
             label: "Адреса",
-            component: ({ entity }) => (
-              <DoctorAddresses addresses={entity.addresses} />
-            ),
+            component: () => <DoctorAddresses addresses={doctor.addresses} />,
           },
           {
             key: "schedule",
             label: "Расписание",
-            component: ({ entity }) => (
-              <DoctorScheduleTab schedule={entity.schedule} />
-            ),
+            component: () => <DoctorScheduleTab schedule={doctor.schedule} />,
           },
           {
             key: "education",
             label: "Образование",
-            component: ({ entity }) => (
-              <DoctorEducationTab education={entity.education} />
+            component: () => (
+              <DoctorEducationTab education={doctor.education} />
             ),
           },
         ]}

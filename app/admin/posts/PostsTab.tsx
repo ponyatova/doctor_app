@@ -21,15 +21,15 @@ export default function PostsTab({ posts }: { posts: Post[] }) {
       </AdminForm>
 
       {posts.map((p, i) => (
-        <AdminForm action={updatePosts} key={p.id}>
+        <AdminForm action={updatePosts} key={`${p.id}-${p.updated_at}`}>
           <div className="border p-4 rounded space-y-2">
-            <AdminHidden name={`posts[${i}][id]`} value={p.id} />
+            <AdminHidden name="id" value={p.id} />
 
-            <AdminInput name={`posts[${i}][title]`} defaultValue={p.title} />
+            <AdminInput name="title" defaultValue={p.title} />
 
-            <AdminInput name={`posts[${i}][slug]`} defaultValue={p.slug} />
+            <AdminInput name="slug" defaultValue={p.slug} />
 
-            <AdminInput name={`posts[${i}][file]`} type="file" />
+            <AdminInput name="file" type="file" />
 
             <Image
               src={p.banner_image}

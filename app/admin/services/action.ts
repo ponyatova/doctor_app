@@ -21,35 +21,18 @@ export async function createService(prev: any, formData: FormData) {
 export async function updateServices(prev: any, formData: FormData) {
   const supabase = await checkAdmin();
 
-  const map = new Map<number, any>();
+  const { error } = await supabase
+    .from("services")
+    .update({
+      title: formData.get("title") || "",
+      description: formData.get("description") || "",
+      price: Number(formData.get("price")) || 0,
+      duration_minutes: Number(formData.get("duration_minutes")) || 0,
+      updated_at: new Date().toISOString(),
+    })
+    .eq("id", formData.get("id"));
 
-  for (const [key, value] of formData.entries()) {
-    const match = key.match(/services\[(\d+)]\[(\w+)]/);
-    if (!match) continue;
-
-    const index = Number(match[1]);
-    const field = match[2];
-
-    if (!map.has(index)) map.set(index, {});
-    map.get(index)![field] = value;
-  }
-
-  for (const s of map.values()) {
-    if (!s.id) continue;
-
-    const { error } = await supabase
-      .from("services")
-      .update({
-        title: s.title,
-        description: s.description,
-        price: Number(s.price),
-        duration_minutes: Number(s.duration_minutes),
-        updated_at: new Date().toISOString(),
-      })
-      .eq("id", s.id);
-
-    if (error) return { error: error.message };
-  }
+  if (error) return { error: error.message };
 
   revalidatePath("/admin/services");
   return { success: true };

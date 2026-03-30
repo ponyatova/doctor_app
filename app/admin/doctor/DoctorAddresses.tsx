@@ -36,24 +36,27 @@ export default function DoctorAddresses({
 
       {/* LIST */}
       {addresses.map((a, i) => (
-        <AdminForm action={upsertDoctorAddresses} key={a.id}>
+        <AdminForm
+          action={upsertDoctorAddresses}
+          key={`${a.id}-${a.updated_at}`}
+        >
           <div className="border p-4 rounded space-y-2 w-full min-w-0">
-            <AdminHidden name={`addresses[${i}][id]`} value={a.id} />
+            <AdminHidden name="id" value={a.id} />
 
             <AdminInput
-              name={`addresses[${i}][address]`}
+              name="address"
               defaultValue={a.address}
               placeholder="Адрес"
             />
 
             <AdminInput
-              name={`addresses[${i}][clinic]`}
+              name="clinic"
               defaultValue={a.clinic}
               placeholder="Клиника"
             />
 
             <AdminInput
-              name={`addresses[${i}][map_link]`}
+              name="map_link"
               defaultValue={a.map_link || ""}
               placeholder="Ссылка на карту"
             />
