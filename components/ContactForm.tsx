@@ -100,28 +100,40 @@ export function ContactForm({ problem, doctor }: ContactFormProps) {
     return time.slice(0, 5); // "09:00:00" -> "09:00"
   };
 
-  // Группируем по дням с одинаковым расписанием для компактного отображения
-  const compactSchedule = doctor.schedule?.reduce(
-    (acc, day) => {
-      const lastGroup = acc[acc.length - 1];
 
-      if (
-        lastGroup &&
-        lastGroup.start === day.start_time &&
-        lastGroup.end === day.end_time
-      ) {
-        lastGroup.days.push(day.day_of_week);
-      } else {
-        acc.push({
-          days: [day.day_of_week],
-          start: day.start_time,
-          end: day.end_time,
-        });
-      }
+const sortedSchedule = [...(doctor.schedule || [])].sort(
+  (a, b) => a.day_of_week - b.day_of_week
+);
+
+
+const compactSchedule = sortedSchedule.reduce<
+  { days: number[]; start: string | null; end: string | null }[]
+>((acc, day) => {
+  const lastGroup = acc[acc.length - 1];
+
+  if (lastGroup) {
+    const lastDay = lastGroup.days[lastGroup.days.length - 1];
+
+    const sameTime =
+      lastGroup.start === day.start_time &&
+      lastGroup.end === day.end_time;
+
+    const isNextDay = lastDay + 1 === day.day_of_week;
+
+    if (sameTime && isNextDay) {
+      lastGroup.days.push(day.day_of_week);
       return acc;
-    },
-    [] as { days: number[]; start: string | null; end: string | null }[],
-  );
+    }
+  }
+
+  acc.push({
+    days: [day.day_of_week],
+    start: day.start_time,
+    end: day.end_time,
+  });
+
+  return acc;
+}, []);
 
   return (
     <section
