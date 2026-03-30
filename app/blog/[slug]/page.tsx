@@ -7,17 +7,9 @@ import { LuArrowLeft, LuCalendar, LuClock } from "react-icons/lu";
 import { getPostBySlug } from "@/lib/actions";
 import { PostSection } from "@/components/posts/PostSection";
 import Link from "next/link";
+import type { PostSection as PostSectionType } from "@/lib/types";
 
 export const revalidate = 300;
-
-type PostSectionType = {
-  id: string;
-  image: string | null;
-  order_num: number;
-  post_id: string;
-  text: string;
-  title: string;
-};
 
 export async function generateStaticParams() {
   const slugs = await getPostSlugs();
