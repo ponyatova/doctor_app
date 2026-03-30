@@ -337,41 +337,54 @@ export async function upsertDoctorSchedules(
     return { error: "Врач не найден" };
   }
 
-  const scheduleMap = new Map<number, any>();
+   const id = formData.get("id") as string;
 
-  for (const [key, value] of formData.entries()) {
-    const match = key.match(/schedule\[(\d+)]\[(\w+)]/);
-    if (!match) continue;
+  const { error } = await supabase
+    .from("doctor_schedule")
+    .update({
+      day_of_week: Number(formData.get("day_of_week")),
+      start_time: formData.get("start_time"),
+      end_time: formData.get("end_time"),
+    })
+    .eq("id", id);
 
-    const index = Number(match[1]);
-    const field = match[2];
-
-    if (!scheduleMap.has(index)) {
-      scheduleMap.set(index, {});
-    }
-
-    const item = scheduleMap.get(index)!;
-    item[field] = value;
-  }
-
-  const schedules = Array.from(scheduleMap.values());
-
-  for (const s of schedules) {
-    if (s.id) {
-      const { error } = await supabase
-        .from("doctor_schedule")
-        .update({
-          day_of_week: Number(s.day_of_week),
-          start_time: s.start_time,
-          end_time: s.end_time,
-        })
-        .eq("id", s.id);
-
-      if (error) return { error: error.message };
-    }
-  }
+  if (error) return { error: error.message };
 
   revalidatePath("/admin/doctor?tab=schedule");
+  // const scheduleMap = new Map<number, any>();
+
+  // for (const [key, value] of formData.entries()) {
+  //   const match = key.match(/schedule\[(\d+)]\[(\w+)]/);
+  //   if (!match) continue;
+
+  //   const index = Number(match[1]);
+  //   const field = match[2];
+
+  //   if (!scheduleMap.has(index)) {
+  //     scheduleMap.set(index, {});
+  //   }
+
+  //   const item = scheduleMap.get(index)!;
+  //   item[field] = value;
+  // }
+
+  // const schedules = Array.from(scheduleMap.values());
+
+  // for (const s of schedules) {
+  //   if (s.id) {
+  //     const { error } = await supabase
+  //       .from("doctor_schedule")
+  //       .update({
+  //         day_of_week: Number(s.day_of_week),
+  //         start_time: s.start_time,
+  //         end_time: s.end_time,
+  //       })
+  //       .eq("id", s.id);
+
+  //     if (error) return { error: error.message };
+  //   }
+  // }
+
 
   return { success: true };
 }
