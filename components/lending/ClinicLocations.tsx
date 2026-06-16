@@ -16,9 +16,11 @@ export function ClinicLocations({ locations }: ClinicLocationsProps) {
           <h2 className="text-3xl md:text-4xl font-light text-slate-800 text-center mb-4">
             Места приёма
           </h2>
-          <p className="text-lg text-slate-500 text-center max-w-2xl mx-auto mb-12">
-            Я принимаю в нескольких клиниках города для вашего удобства
-          </p>
+         <p className="text-lg text-slate-500 text-center max-w-2xl mx-auto mb-12">
+  {locations.length > 1
+    ? "Выберите удобное место для записи на приём"
+    : "Приём ведётся по указанному адресу"}
+</p>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
             {locations.map((clinic) => (
